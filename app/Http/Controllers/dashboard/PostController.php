@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-
-use App\Http\Requests\Post\StoreRequest;
-use iLLuminate\Support\Str;
 use App\Models\Category;
 use App\Models\Post;
+use Illuminate\Support\Str;
+use App\Http\Requests\Post\StoreRequest;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -19,7 +18,6 @@ class PostController extends Controller
     public function index()
     {
         //
-        echo "hola";
     }
 
     /**
@@ -28,10 +26,11 @@ class PostController extends Controller
     public function create()
     {
         
-        $categories = Category::pluck('id','title');
+        $categories= Category::pluck('id', 'title');
+
+        // dd($categories);
 
         echo view('dashboard.post.create', compact('categories'));
-
     }
 
     /**
@@ -41,20 +40,26 @@ class PostController extends Controller
     {
         //
 
-        // $validated = Validator::make($request->all(),);
+        //  $data = array_merge($request->all(),['image' => '']);
 
-        //  $data = array_merge($request->all(),['Image' => '']);
+        // $data= $request->validated();
+        
+        // $data['slug']=Str::slug($data['title']);
+        
+        // dd($data['slug']);
 
-        $data=dd($request->validated());
-        $data['slut']=Str::slug($data['title']);
-        dd($data);
-        Post::create($data);
+        // dd($request->validated()['slug']);
+
+
+
+        
+        Post::create($request->validated());
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(string $id)
     {
         //
     }
@@ -62,7 +67,7 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit(string $id)
     {
         //
     }
@@ -70,7 +75,7 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -78,7 +83,7 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy()
+    public function destroy(string $id)
     {
         //
     }

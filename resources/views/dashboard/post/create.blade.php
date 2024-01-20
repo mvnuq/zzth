@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="{{ asset('styles.css') }}">    
 </head>
 <body>
     <h1>Crear post</h1>
@@ -16,16 +17,17 @@
     <form action="{{route('post.store')}}" method="post">
         @csrf
         <label for="">Titulo</label>
-        <input type="text" name="" id="">
+        <input type="text" name="title" id="">
        
         <label for="">Slug</label>
-        <input type="text" name="" id="">
+        <input type="text" name="slug" id="">
         <label for="">Categoria</label>
         <select name="category_id">
             <option value=""></option>
             @foreach ($categories as $title =>$id)
                 <option value=" {{$id}}">{{$title}}></option>
             @endforeach
+
 
         </select>
 
@@ -44,6 +46,8 @@
        
         <button type ="submit">Enviar</button>
     </form>
+
+
 </body>
 </html>
     

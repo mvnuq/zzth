@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/',[TestController::class,'index'] );
 
 Route::resource('post', PostController::class);
 
