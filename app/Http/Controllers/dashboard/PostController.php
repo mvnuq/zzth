@@ -18,19 +18,23 @@ class PostController extends Controller
     public function index()
     {
         //
+
+        $posts = Post::paginate(2);
+        return view('dashboard.post.index', compact('posts'));
     }
 
-    /**
+    /**s
      * Show the form for creating a new resource.
      */
     public function create()
     {
         
         $categories= Category::pluck('id', 'title');
+        $post = new Post();
 
         // dd($categories);
 
-        echo view('dashboard.post.create', compact('categories'));
+        echo view('dashboard.post.create', compact('categories','post'));
     }
 
     /**
@@ -54,37 +58,60 @@ class PostController extends Controller
 
         
         Post::create($request->validated());
+
+        return to_route('post.index')->with('status',"Registrado creado. ");
     }
 
-    /**
+    /**KS
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Post $post)
     {
         //
+        return view("dashboard.post.show", compact('post'));
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Post $post)
     {
         //
+        $categories= Category::pluck('id', 'title');
+        echo view('dashboard.post.edit', compact('categories','post'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PutRequest $request, Post $post)
     {
         //
+        $data=$request ->validated();
+        if (isset($data["image"])){
+               
+
+           $data["image"] = $filename = time().".".$data["image"]->extension();
+
+            $request->image->move(public_path("image"),$filename);
+            
+
+
+
+        }
+        $post->update($data);
+        return to_route('post.index')->with('status',"Registrado actualizado. ");
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Post $post)
     {
-        //
+        $post -> delete();
+        return to_route('post.index')->with('status',"Registrado eliminado. ");
+
     }
 }
