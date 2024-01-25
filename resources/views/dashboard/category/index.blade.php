@@ -1,9 +1,7 @@
 @extends('dashboard.layout')
 
 @section('content')
-    @can('editor.category.create')
         <a class="my-2 btn btn-success" href="{{ route('category.create') }}">Crear</a>
-    @endcan
     <table class="table mb-3">
         <thead>
             <tr>

@@ -16,7 +16,7 @@
 
 
 
-        <button type ="submit">Enviar</button>
+        <button class="mt-2 btn btn-success" type ="submit">Enviar</button>
 
     </form>
 
