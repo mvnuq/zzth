@@ -18,9 +18,10 @@ class StoreRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        $this ->merge([
-            'slug'=> Str::slug($this ->title)
-
+        $this->merge([
+            //'slug' => Str::slug($this->title),
+            //'slug' => Str::of($this->title)->slug()->append("-adicional"),
+            'slug' => str($this->title)->slug()
         ]);
     }
     static public function Myrules()
